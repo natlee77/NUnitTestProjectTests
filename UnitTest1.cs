@@ -41,16 +41,25 @@ namespace NUnitTestProjectTests
 
 
             //sortera product
-            string sortby = "mest populär";
-            SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
-            dropDown.SelectByValue(sortby);
+            //string sortby = "Mest populär";
+            //SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
+            //dropDown.SelectByValue(sortby);
 
-            string actualText = driver.FindElement(By.CssSelector(".selected-value.text-size-14")).Text;
-            Assert.True(actualText.Contains(sortby), $"The expected day of the week {sortby} was not selected. The actual text was: {actualText}.");
+            //string actualText = driver.FindElement(By.CssSelector(".selected")).Text;
+            //Assert.True(actualText.Contains(sortby), $"The expected value {sortby} was not selected. The actual text was: {actualText}.");
 
-            //choose product
+            //choose product for review
+            var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));
+            product1.Click();
 
+            // Add to shoping cart 
+            var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
+            addProduct1ToShoppingCart.Click();
 
+            
+            // go to Kassa 
+            var  toShoppingCart = driver.FindElement(By.XPath("//a[@class='btn b6ngirs b31phgu']"));
+            toShoppingCart.Click();
             // click button "Mina Sida " och redirect to Login page
             //var myAccount = driver.FindElement(By.XPath("//span[text()='Mina sidor']"));
             //myAccount.Click();
