@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
+ 
 
 namespace NUnitTestProjectTests
 {
@@ -8,16 +8,7 @@ namespace NUnitTestProjectTests
     {
         private const string _userlogin = "natlisjo@gmail.com";
         private const string _userpassword = "1234567";
-
-        //static FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(@"C:\Users\abcd\Downloads\geckodriver-v0.13.0-win64", "geckodriver.exe");
-        //service.FirefoxBinaryPath= @"D:\Program Files\Mozilla\firefox.exe";
-        //service.Port = 64444;        
-        //service.HideCommandPromptWindow = true;
-        //service.SuppressInitialDiagnosticInformation = true;
-
-
-        IWebDriver Driver = new FirefoxDriver();
-
+         
         private IWebDriver driver;
         public static string driverpath = @"D:\Program Files\Mozilla\firefox.exe"; //find the web driver path
 
@@ -25,8 +16,7 @@ namespace NUnitTestProjectTests
         public void Setup()
         {
 
-            driver = new FirefoxDriver(driverpath);
-                         //OpenQA.Selenium.Edge.EdgeDriver();
+            driver = new  OpenQA.Selenium.Edge.EdgeDriver();
 
            
            driver.Navigate().GoToUrl("https://www.obo.se/");
@@ -39,14 +29,13 @@ namespace NUnitTestProjectTests
         public void LoginTest()
         {
 
-            ////Assert.Pass();
-            var acceptCookies = driver.FindElement(By.Id("wt-cli-accept-all-btn"));
-            ////(By.XPath("//button[@id='uc-btn-deny-banner']"));
-            ////
+            //Assert.Pass();
+            // Ladda ner home page och accept cokkies 
+            var acceptCookies = driver.FindElement(By.Id("wt-cli-accept-all-btn"));            
             acceptCookies.Click();
-
-            var signIn = driver.FindElement(By.XPath("//span[text()='Mina sidor']"));
-            signIn.Click();
+            // click button "Mina Sida " och redirect to Login page
+            var myAccount = driver.FindElement(By.XPath("//span[text()='Mina sidor']"));
+            myAccount.Click();
 
 
 
@@ -60,12 +49,12 @@ namespace NUnitTestProjectTests
             loginName.SendKeys(_userlogin);
             //(By.Id("loginUsername"));               
             //(By.XPath("//*[@id='loginUsername']"));
-             
 
-            //var _loginPasssword = driver.FindElement(By.Id("loginPassword"));
-            // _loginPasssword..SendKeys(_userpassword);
-            //var  continueLogin = driver.FindElement(By.XPath("//button[@id='btnLogin']"));
-            //continueLogin.Click();
+
+            var _loginPasssword = driver.FindElement(By.Id("loginPassword"));
+            _loginPasssword.SendKeys(_userpassword);
+            var continueLogin = driver.FindElement(By.XPath("//button[@id='btnLogin']"));
+            continueLogin.Click();
         }
 
 
