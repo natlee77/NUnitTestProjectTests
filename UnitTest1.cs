@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
- 
+using OpenQA.Selenium.Support.UI;
 
 namespace NUnitTestProjectTests
 {
@@ -39,6 +39,15 @@ namespace NUnitTestProjectTests
             var searchbutton = driver.FindElement(By.XPath("//span[@class='s1vsg01n fa fa-search']"));
             searchbutton.Click();
 
+
+            //sortera product
+            string sortby = "mest populär";
+            SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
+            dropDown.SelectByValue(sortby);
+
+            string actualText = driver.FindElement(By.CssSelector(".selected-value.text-size-14")).Text;
+            Assert.True(actualText.Contains(sortby), $"The expected day of the week {sortby} was not selected. The actual text was: {actualText}.");
+
             //choose product
 
 
@@ -49,15 +58,15 @@ namespace NUnitTestProjectTests
 
 
 
-            //var loginName = "return window.getComputedStyle(document.querySelector('#loginUsername'),':before') ";
-            //JavascriptExecutor js = (JavascriptExecutor)driver;
-            // String content = (String)js.executeScript(loginName);
-            // System.out.println(_userlogin);
+
+            //     var registrateNewUser = driver.FindElement(By.XPath(" "));
+            //     registrateNewUser.Click();
+
+
 
             //var loginName = driver.FindElement(By.CssSelector("#loginUsername"));
             //loginName.SendKeys(_userlogin);
-            //(By.Id("loginUsername"));               
-            //(By.XPath("//*[@id='loginUsername']"));
+
 
 
             //var _loginPasssword = driver.FindElement(By.Id("loginPassword"));
@@ -68,13 +77,6 @@ namespace NUnitTestProjectTests
 
 
 
-
-        //private readonly By _loginInputButton = By.XPath("//input[@id='loginUsername']");
-        //private readonly By _loginPasswordButton = By.XPath("//input[@id='loginPassword']");
-
-
-        //     var registrateNewUser = driver.FindElement(By.XPath(" "));
-        //     registrateNewUser.Click();
 
 
 
