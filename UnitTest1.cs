@@ -12,35 +12,23 @@ namespace NUnitTestProjectTests
         private const string _userlogin = "natlisjo@gmail.com";
         private const string _userpassword = "1234567";
         private const string _usertelefon = "+46735000000";
-        private const string _userPersonnummer = "197106255248";
+        private const string _userPersonnummer = "190006250000";
         private const string _firstName = "Jonson";
         private const string _lastName = "Jonson";
         private const string _userAdress= "Karlskogagatan";
         private const string _userPostNummer = "69333";
         private const string _userPostStade = "Karlskoga";
+
         private IWebDriver driver;
         
         [SetUp]
         public void Setup()
         {
-
-            driver = new  OpenQA.Selenium.Edge.EdgeDriver();
-
-           
+           driver = new  OpenQA.Selenium.Edge.EdgeDriver();
            driver.Navigate().GoToUrl("https://www.inet.se/");         
            driver.Manage().Window.Maximize();
-
-
-          
         }
-        //public   void WaitForElementLoad(By by, int timeoutInSeconds)
-        //{
-        //    if (timeoutInSeconds > 0)
-        //    {
-        //        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-        //        wait.Until(ExpectedConditions.ElementIsVisible(by));
-        //    }
-        //}
+        
         [Test]
         public void LoginTest()
         {
@@ -74,10 +62,8 @@ namespace NUnitTestProjectTests
 
             // Add to shoping cart 
             var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
-            addProduct1ToShoppingCart.Click();
-            //addProduct1ToShoppingCart.WaitForElementLoad(By.XPath("//button[normalize-space()='Köp']",10));
+            addProduct1ToShoppingCart.Click();            
             Thread.Sleep(3000);
-
 
 
             // go to Kassa 
@@ -117,6 +103,10 @@ namespace NUnitTestProjectTests
              loginLastName.SendKeys(_lastName);
             Thread.Sleep(2000);
 
+            //var takeAdressByPersonMummer = driver.FindElement(By.XPath("//button[normalize-space()='Hämta adress']"));
+            //takeAdressByPersonMummer.Click();
+            //Thread.Sleep(2000);
+
             var loginAdress = driver.FindElement(By.XPath("//input[@id='streetAddress']"));
             loginAdress.SendKeys(_userAdress);
             Thread.Sleep(2000);
@@ -130,7 +120,7 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
 
             //var registrateNewUser = driver.FindElement(By.XPath("//button[@type='submit']"));
-            //registrateNewUser.Click();
+            //registrateNewUser.Click();                                                                         
 
             // Login in  MyAccount
 
@@ -149,15 +139,10 @@ namespace NUnitTestProjectTests
 
 
 
-
-
-
-
-
         [TearDown]
         public void TearDown()
         {
-            //driver.Quit();
+            driver.Quit();
         }
     }
 }
