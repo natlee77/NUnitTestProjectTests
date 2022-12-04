@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.ObjectModel;
 
 namespace NUnitTestProjectTests
 {
@@ -20,20 +22,30 @@ namespace NUnitTestProjectTests
            
            driver.Navigate().GoToUrl("https://www.inet.se/");         
            driver.Manage().Window.Maximize();
-        }
 
+
+          
+        }
+        public   void WaitForElementLoad(By by, int timeoutInSeconds)
+        {
+            if (timeoutInSeconds > 0)
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+                wait.Until(ExpectedConditions.ElementIsVisible(by));
+            }
+        }
         [Test]
         public void LoginTest()
         {
-
+            
             //Assert.Pass();
             // Ladda ner home page och accept cokkies 
             var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));            
             acceptCookies.Click();
-
+           
             //search line 
             string product = "webbkamera";
-            var search = driver.FindElement(By.XPath("//input[@placeholder='Sök bland 12 039 produkter i 567 kategorier']"));
+            var search = driver.FindElement(By.XPath("//input[@class='ia1wvbu form-control']"));
             search.SendKeys(product);
 
             var searchbutton = driver.FindElement(By.XPath("//span[@class='s1vsg01n fa fa-search']"));
@@ -52,15 +64,21 @@ namespace NUnitTestProjectTests
             var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));
             product1.Click();
 
+
             // Add to shoping cart 
             var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
             addProduct1ToShoppingCart.Click();
+           //addProduct1ToShoppingCart.WaitForElementLoad(By.XPath("//button[normalize-space()='Köp']",10));
 
-            
+            // change amount of product  + -    //button[class='b1uy6qgp']
+            //var addAmount = driver.FindElement(By.XPath("//button[normalize-space()='+']"));
+            //addAmount.Click();
+
             // go to Kassa 
-            var  toShoppingCart = driver.FindElement(By.XPath("//a[@class='btn b6ngirs b31phgu']"));
+            var toShoppingCart = driver.FindElement(By.LinkText("Till kassan"));
             toShoppingCart.Click();
-            // click button "Mina Sida " och redirect to Login page
+
+
             //var myAccount = driver.FindElement(By.XPath("//span[text()='Mina sidor']"));
             //myAccount.Click();
 
@@ -86,7 +104,7 @@ namespace NUnitTestProjectTests
 
 
 
-
+       
 
 
 
