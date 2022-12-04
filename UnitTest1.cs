@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 
 namespace NUnitTestProjectTests
 {
@@ -10,7 +11,13 @@ namespace NUnitTestProjectTests
     {
         private const string _userlogin = "natlisjo@gmail.com";
         private const string _userpassword = "1234567";
-         
+        private const string _usertelefon = "+46735000000";
+        private const string _userPersonnummer = "197106255248";
+        private const string _firstName = "Jonson";
+        private const string _lastName = "Jonson";
+        private const string _userAdress= "Karlskogagatan";
+        private const string _userPostNummer = "69333";
+        private const string _userPostStade = "Karlskoga";
         private IWebDriver driver;
         
         [SetUp]
@@ -26,14 +33,14 @@ namespace NUnitTestProjectTests
 
           
         }
-        public   void WaitForElementLoad(By by, int timeoutInSeconds)
-        {
-            if (timeoutInSeconds > 0)
-            {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-                wait.Until(ExpectedConditions.ElementIsVisible(by));
-            }
-        }
+        //public   void WaitForElementLoad(By by, int timeoutInSeconds)
+        //{
+        //    if (timeoutInSeconds > 0)
+        //    {
+        //        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        //        wait.Until(ExpectedConditions.ElementIsVisible(by));
+        //    }
+        //}
         [Test]
         public void LoginTest()
         {
@@ -68,43 +75,81 @@ namespace NUnitTestProjectTests
             // Add to shoping cart 
             var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
             addProduct1ToShoppingCart.Click();
-           //addProduct1ToShoppingCart.WaitForElementLoad(By.XPath("//button[normalize-space()='Köp']",10));
+            //addProduct1ToShoppingCart.WaitForElementLoad(By.XPath("//button[normalize-space()='Köp']",10));
+            Thread.Sleep(3000);
 
-            // change amount of product  + -    //button[class='b1uy6qgp']
-            //var addAmount = driver.FindElement(By.XPath("//button[normalize-space()='+']"));
-            //addAmount.Click();
+
 
             // go to Kassa 
             var toShoppingCart = driver.FindElement(By.LinkText("Till kassan"));
             toShoppingCart.Click();
 
 
-            //var myAccount = driver.FindElement(By.XPath("//span[text()='Mina sidor']"));
-            //myAccount.Click();
+
+            // change amount of product  + -     
+            var addAmount = driver.FindElement(By.XPath("//button[normalize-space()='+']"));
+            addAmount.Click();
+            Thread.Sleep(3000);
+            var lessAmount = driver.FindElement(By.XPath("//button[normalize-space()='-']"));
+            lessAmount.Click();
+            Thread.Sleep(3000);
 
 
 
+            //       registrate New User Info
+            var loginEmail = driver.FindElement(By.XPath("//input[@id='email']"));
+            loginEmail.SendKeys(_userlogin);
+            Thread.Sleep(2000);
 
+            var loginTelefon = driver.FindElement(By.XPath("//input[@id='cellPhone']"));
+            loginTelefon.SendKeys(_usertelefon);
+            Thread.Sleep(2000);
 
-            //     var registrateNewUser = driver.FindElement(By.XPath(" "));
-            //     registrateNewUser.Click();
+            var loginPersonNummer = driver.FindElement(By.XPath("//input[@id='organizationNo']"));
+             loginPersonNummer.SendKeys(_userPersonnummer);
+            Thread.Sleep(2000);
 
+            var loginFirstName = driver.FindElement(By.XPath("//input[@id='firstName']"));
+            loginFirstName.SendKeys(_firstName);
+            Thread.Sleep(2000);
 
+            var loginLastName = driver.FindElement(By.XPath("//input[@id='lastName']"));
+             loginLastName.SendKeys(_lastName);
+            Thread.Sleep(2000);
 
-            //var loginName = driver.FindElement(By.CssSelector("#loginUsername"));
-            //loginName.SendKeys(_userlogin);
+            var loginAdress = driver.FindElement(By.XPath("//input[@id='streetAddress']"));
+            loginAdress.SendKeys(_userAdress);
+            Thread.Sleep(2000);
 
+            var loginPostNummer = driver.FindElement(By.XPath("//input[@id='zipCode']"));
+            loginPostNummer.SendKeys(_userPostNummer);
+            Thread.Sleep(2000);
 
+            var loginPostStade = driver.FindElement(By.XPath("//input[@class='f1tuanv9 form-control']"));
+            loginPostStade.SendKeys(_userPostStade);
+            Thread.Sleep(2000);
 
-            //var _loginPasssword = driver.FindElement(By.Id("loginPassword"));
-            //_loginPasssword.SendKeys(_userpassword);
-            //var continueLogin = driver.FindElement(By.XPath("//button[@id='btnLogin']"));
-            //continueLogin.Click();
+            //var registrateNewUser = driver.FindElement(By.XPath("//button[@type='submit']"));
+            //registrateNewUser.Click();
+
+            // Login in  MyAccount
+
+            var loginInAccount = driver.FindElement(By.XPath("//label[@class='lnp1qmo']"));
+            loginInAccount.Click();
+
+            var loginName = driver.FindElement(By.XPath("//input[@id='login.email']"));
+            loginName.SendKeys(_userlogin);
+
+            var _loginPasssword = driver.FindElement(By.XPath("//input[@id='password']"));
+            _loginPasssword.SendKeys(_userpassword);
+
+            var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
+            continueLogin.Click();
         }
 
 
 
-       
+
 
 
 
