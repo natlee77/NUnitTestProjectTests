@@ -45,15 +45,14 @@ namespace NUnitTestProjectTests
 
             var searchbutton = driver.FindElement(By.XPath("//span[@class='s1vsg01n fa fa-search']"));
             searchbutton.Click();
-
+            
 
             //sortera product
-            //string sortby = "Mest populär";
-            //SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
-            //dropDown.SelectByValue(sortby);
+            string sortby = "Mest populär";
+            SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
+            dropDown.SelectByText(sortby);  
+            Thread.Sleep(3000);
 
-            //string actualText = driver.FindElement(By.CssSelector(".selected")).Text;
-            //Assert.True(actualText.Contains(sortby), $"The expected value {sortby} was not selected. The actual text was: {actualText}.");
 
             //choose product for review
             var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));
@@ -142,7 +141,7 @@ namespace NUnitTestProjectTests
         [TearDown]
         public void TearDown()
         {
-            driver.Quit();
+            //driver.Quit();
         }
     }
 }
