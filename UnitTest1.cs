@@ -1,15 +1,17 @@
-﻿using NUnit.Framework;
+﻿ 
+using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.ObjectModel;
+using OpenQA.Selenium.Support.UI; 
 using System.Threading;
 
 namespace NUnitTestProjectTests
 {
     public class Tests
     {
-        private const string _userlogin = "natlisjo@gmail.com";
+
+        public const string BaseUrlHttps = "https://www.inet.se/";
+
+        private const string _userlogin = "natl999o@gmail.com";
         private const string _userpassword = "1234567";
         private const string _usertelefon = "+46735000000";
         private const string _userPersonnummer = "190006250000";
@@ -21,23 +23,31 @@ namespace NUnitTestProjectTests
 
         private IWebDriver driver;
         
-        [SetUp]
+        [SetUp]  // before each
         public void Setup()
         {
            driver = new  OpenQA.Selenium.Edge.EdgeDriver();
-           driver.Navigate().GoToUrl("https://www.inet.se/");         
-           driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl(BaseUrlHttps);
+            driver.Manage().Window.Maximize();
         }
-        
+ 
+       
+
+        //[Test]
+        //public void GoToHttps()
+        //{
+
+
+        //}
         [Test]
         public void LoginTest()
         {
-            
-            //Assert.Pass();
+
+
+            Assert.That(driver.Url, Is.EqualTo(BaseUrlHttps));
             // Ladda ner home page och accept cokkies 
-            var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));            
+            var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));
             acceptCookies.Click();
-           
             //search line 
             string product = "webbkamera";
             var search = driver.FindElement(By.XPath("//input[@class='ia1wvbu form-control']"));
@@ -52,7 +62,7 @@ namespace NUnitTestProjectTests
             SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
             dropDown.SelectByText(sortby);  
             Thread.Sleep(3000);
-
+           
 
             //choose product for review
             var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));
@@ -132,16 +142,17 @@ namespace NUnitTestProjectTests
             var _loginPasssword = driver.FindElement(By.XPath("//input[@id='password']"));
             _loginPasssword.SendKeys(_userpassword);
 
-            var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
-            continueLogin.Click();
+            //var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
+            //continueLogin.Click();
         }
 
 
 
-        [TearDown]
+        [TearDown] // efter each
         public void TearDown()
         {
-            //driver.Quit();
+            driver.Quit();
+            
         }
     }
 }
