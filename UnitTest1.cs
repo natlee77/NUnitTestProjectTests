@@ -64,9 +64,9 @@ namespace NUnitTestProjectTests
            
 
             //choose product for review
-            var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));
+            var product1 = driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']"));          
+            Assert.That(driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']")).Text, Is.EqualTo("Logitech C920 HD Pro"));
             product1.Click();
-
 
             // Add to shoping cart 
             var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
