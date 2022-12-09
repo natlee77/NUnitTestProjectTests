@@ -26,28 +26,23 @@ namespace NUnitTestProjectTests
         [SetUp]  // before each
         public void Setup()
         {
-           driver = new  OpenQA.Selenium.Edge.EdgeDriver();
-            driver.Navigate().GoToUrl(BaseUrlHttps);
-            driver.Manage().Window.Maximize();
+           driver = new  OpenQA.Selenium.Edge.EdgeDriver();           
+           driver.Manage().Window.Maximize();
+
+          
         }
  
        
 
-        //[Test]
-        //public void GoToHttps()
-        //{
-
-
-        //}
         [Test]
-        public void LoginTest()
+        public void HomePageTest()
         {
-
-
+            driver.Navigate().GoToUrl(BaseUrlHttps);
             Assert.That(driver.Url, Is.EqualTo(BaseUrlHttps));
             // Ladda ner home page och accept cokkies 
             var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));
             acceptCookies.Click();
+
             //search line 
             string product = "webbkamera";
             var search = driver.FindElement(By.XPath("//input[@class='ia1wvbu form-control']"));
@@ -79,7 +74,7 @@ namespace NUnitTestProjectTests
             var toShoppingCart = driver.FindElement(By.LinkText("Till kassan"));
             toShoppingCart.Click();
 
-
+         
 
             // change amount of product  + -     
             var addAmount = driver.FindElement(By.XPath("//button[normalize-space()='+']"));
@@ -89,8 +84,7 @@ namespace NUnitTestProjectTests
             lessAmount.Click();
             Thread.Sleep(3000);
 
-
-
+ 
             //       registrate New User Info
             var loginEmail = driver.FindElement(By.XPath("//input[@id='email']"));
             loginEmail.SendKeys(_userlogin);
@@ -101,7 +95,7 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
 
             var loginPersonNummer = driver.FindElement(By.XPath("//input[@id='organizationNo']"));
-             loginPersonNummer.SendKeys(_userPersonnummer);
+            loginPersonNummer.SendKeys(_userPersonnummer);
             Thread.Sleep(2000);
 
             var loginFirstName = driver.FindElement(By.XPath("//input[@id='firstName']"));
@@ -109,7 +103,7 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
 
             var loginLastName = driver.FindElement(By.XPath("//input[@id='lastName']"));
-             loginLastName.SendKeys(_lastName);
+            loginLastName.SendKeys(_lastName);
             Thread.Sleep(2000);
 
             //var takeAdressByPersonMummer = driver.FindElement(By.XPath("//button[normalize-space()='Hämta adress']"));
@@ -129,12 +123,23 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
 
             //var registrateNewUser = driver.FindElement(By.XPath("//button[@type='submit']"));
-            //registrateNewUser.Click();                                                                         
+            //registrateNewUser.Click();                                              
+        }
 
+
+        [Test]
+        public void LoginTest()
+        {
+
+            driver.Navigate().GoToUrl(BaseUrlHttps);
+            Assert.That(driver.Url, Is.EqualTo(BaseUrlHttps));
+            // Ladda ner home page och accept cokkies 
+            var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));
+            acceptCookies.Click();
             // Login in  MyAccount
 
-            var loginInAccount = driver.FindElement(By.XPath("//label[@class='lnp1qmo']"));
-            loginInAccount.Click();
+            var loginInAccountButton = driver.FindElement(By.XPath("//label[@class='lnp1qmo']"));
+            loginInAccountButton.Click();
 
             var loginName = driver.FindElement(By.XPath("//input[@id='login.email']"));
             loginName.SendKeys(_userlogin);
@@ -145,9 +150,6 @@ namespace NUnitTestProjectTests
             //var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
             //continueLogin.Click();
         }
-
-
-
         [TearDown] // efter each
         public void TearDown()
         {
