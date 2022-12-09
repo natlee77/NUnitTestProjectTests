@@ -1,8 +1,12 @@
-﻿ 
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI; 
 using System.Threading;
+using OpenQA.Selenium.Interactions;
 
 namespace NUnitTestProjectTests
 { 
@@ -106,9 +110,8 @@ namespace NUnitTestProjectTests
             loginLastName.SendKeys(_lastName);
             Thread.Sleep(2000);
 
-            //var takeAdressByPersonMummer = driver.FindElement(By.XPath("//button[normalize-space()='Hämta adress']"));
-            //takeAdressByPersonMummer.Click();
-            //Thread.Sleep(2000);
+            var takeAdressByPersonNummer = driver.FindElements(By.XPath("//button[normalize-space()='Hämta adress']"));
+            Assert.True(takeAdressByPersonNummer.Count > 0); 
 
             var loginAdress = driver.FindElement(By.XPath("//input[@id='streetAddress']"));
             loginAdress.SendKeys(_userAdress);
@@ -122,7 +125,8 @@ namespace NUnitTestProjectTests
             loginPostStade.SendKeys(_userPostStade);
             Thread.Sleep(2000);
 
-            //var registrateNewUser = driver.FindElement(By.XPath("//button[@type='submit']"));
+             var registrateNewUser = driver.FindElements(By.XPath("//button[@type='submit']"));
+            Assert.True(registrateNewUser.Count > 0);
             //registrateNewUser.Click();                                              
         }
 
@@ -133,21 +137,24 @@ namespace NUnitTestProjectTests
 
             driver.Navigate().GoToUrl(BaseUrlHttps);
             Assert.That(driver.Url, Is.EqualTo(BaseUrlHttps));
-            var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));
-            acceptCookies.Click();
+            driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']")).Click();
+
             // Login in  MyAccount   
 
-            var loginInAccountButton = driver.FindElement(By.XPath("//label[normalize-space()='Min sida']"));
-            loginInAccountButton.Click();
+            driver.FindElement(By.XPath("//label[normalize-space()='Min sida']")).Click();            
             Thread.Sleep(2000);
+
             var loginName = driver.FindElement(By.XPath("//input[@id='login.email']"));
             loginName.SendKeys(_userlogin);
             Thread.Sleep(2000);
+
             var _loginPasssword = driver.FindElement(By.XPath("//input[@id='password']"));
             _loginPasssword.SendKeys(_userpassword);
             Thread.Sleep(2000);
-            //var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
-            //continueLogin.Click();
+
+            var continueLogin = driver.FindElements(By.XPath("//button[normalize-space()='Logga in']"));
+            Assert.True(continueLogin.Count > 0);
+             
         }
         [TearDown] // efter each
         public void TearDown()
