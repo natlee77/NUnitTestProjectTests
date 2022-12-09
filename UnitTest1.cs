@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 using System.Threading;
 
 namespace NUnitTestProjectTests
-{
+{ 
     public class Tests
     {
 
@@ -73,7 +73,7 @@ namespace NUnitTestProjectTests
             // go to Kassa 
             var toShoppingCart = driver.FindElement(By.LinkText("Till kassan"));
             toShoppingCart.Click();
-
+             
          
 
             // change amount of product  + -     
@@ -133,20 +133,19 @@ namespace NUnitTestProjectTests
 
             driver.Navigate().GoToUrl(BaseUrlHttps);
             Assert.That(driver.Url, Is.EqualTo(BaseUrlHttps));
-            // Ladda ner home page och accept cokkies 
             var acceptCookies = driver.FindElement(By.XPath("//button[normalize-space()='Jag förstår']"));
             acceptCookies.Click();
-            // Login in  MyAccount
+            // Login in  MyAccount   
 
-            var loginInAccountButton = driver.FindElement(By.XPath("//label[@class='lnp1qmo']"));
+            var loginInAccountButton = driver.FindElement(By.XPath("//label[normalize-space()='Min sida']"));
             loginInAccountButton.Click();
-
+            Thread.Sleep(2000);
             var loginName = driver.FindElement(By.XPath("//input[@id='login.email']"));
             loginName.SendKeys(_userlogin);
-
+            Thread.Sleep(2000);
             var _loginPasssword = driver.FindElement(By.XPath("//input[@id='password']"));
             _loginPasssword.SendKeys(_userpassword);
-
+            Thread.Sleep(2000);
             //var continueLogin = driver.FindElement(By.XPath("//button[normalize-space()='Logga in']"));
             //continueLogin.Click();
         }
@@ -156,5 +155,6 @@ namespace NUnitTestProjectTests
             driver.Quit();
             
         }
+       
     }
 }
