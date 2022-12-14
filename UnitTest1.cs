@@ -12,7 +12,7 @@ namespace NUnitTestProjectTests
 { 
     public class Tests
     {
-
+      
         public const string BaseUrlHttps = "https://www.inet.se/";
 
         private const string _userlogin = "natl999o@gmail.com";
@@ -60,7 +60,7 @@ namespace NUnitTestProjectTests
             string sortby = "Mest populär";
             SelectElement dropDown = new SelectElement(driver.FindElement(By.XPath("//select[@aria-label='Välj sorteringsordning i produktlistan']")));
             dropDown.SelectByText(sortby);  
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
            
 
             //choose product for review
@@ -68,10 +68,14 @@ namespace NUnitTestProjectTests
             Assert.That(driver.FindElement(By.XPath("//h4[normalize-space()='Logitech C920 HD Pro']")).Text, Is.EqualTo("Logitech C920 HD Pro"));
             product1.Click();
 
+            // check if picture 
+            var logittechImage = driver.FindElements(By.XPath("//img[@class='ibv243h']"));
+            Assert.True(logittechImage.Count > 0);
+
             // Add to shoping cart 
             var addProduct1ToShoppingCart = driver.FindElement(By.XPath("//button[normalize-space()='Köp']"));
             addProduct1ToShoppingCart.Click();            
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
 
 
             // go to Kassa 
@@ -83,7 +87,7 @@ namespace NUnitTestProjectTests
             // change amount of product  + -     
             var addAmount = driver.FindElement(By.XPath("//button[normalize-space()='+']"));
             addAmount.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             var lessAmount = driver.FindElement(By.XPath("//button[normalize-space()='-']"));
             lessAmount.Click();
             Thread.Sleep(3000);
@@ -126,10 +130,12 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
 
              var registrateNewUser = driver.FindElements(By.XPath("//button[@type='submit']"));
-            Assert.True(registrateNewUser.Count > 0);
+             Assert.True(registrateNewUser.Count > 0);
             //registrateNewUser.Click();                                              
         }
 
+
+                  /***   * Tests login feature  */
 
         [Test]
         public void LoginTest()
