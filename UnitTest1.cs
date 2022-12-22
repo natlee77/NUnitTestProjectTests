@@ -90,7 +90,7 @@ namespace NUnitTestProjectTests
             Thread.Sleep(2000);
             var lessAmount = driver.FindElement(By.XPath("//button[normalize-space()='-']"));
             lessAmount.Click();
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
 
  
             //       registrate New User Info
